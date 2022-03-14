@@ -24,6 +24,8 @@ namespace rs
     bool isInvalidChangeStage(al::LiveActor const *);
 
     bool isMsgCapTouchWall(al::SensorMsg const *);
+
+	bool isPlayer2D(al::LiveActor const*);
 	
 	void faceToCamera(al::LiveActor *);
 

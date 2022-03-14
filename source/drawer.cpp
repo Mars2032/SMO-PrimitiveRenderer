@@ -71,3 +71,25 @@ bool tryDrawAreaGroup(al::Scene* curScene, char const* area, bool isDrawSolid = 
     }
     return true;
 }
+
+bool tryDrawActorHitsensors(al::LiveActor* actor, sead::Color4f body = sead::Color4f(0, 255, 0, .4), sead::Color4f eye = sead::Color4f(0, 255, 0, .4)) {
+    sead::PrimitiveRenderer* renderer = sead::PrimitiveRenderer::instance();
+    if (!renderer) return false;
+
+    al::HitSensor** sensors = actor->mHitSensorKeeper->mSensors;
+    int sensorNum = actor->mHitSensorKeeper->mSensorNum;
+    for (int i = 0; i < sensorNum; i++) {
+        renderer->begin();
+        sead::Vector3f* pos = al::getSensorPos(sensors[i]);
+        float radius = al::getSensorRadius(sensors[i]);
+        if (al::isSensorValid(sensors[i])) {
+                if (al::isSensorEye(sensors[i]) && isEnableEye) {
+                    renderer->drawCircle32(*pos, radius, eye);
+                } else {
+                    renderer->drawSphere4x8(*pos, radius, body);
+                }
+        }
+        renderer->end();
+    }
+    return true;
+}

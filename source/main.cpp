@@ -1,48 +1,54 @@
 #include "main.h"
 #include "al/util.hpp"
+#include "al/scene/Scene.h"
+#include "game/StageScene/StageScene.h"
 
-// ⨻WARNING!⨻ ->  This project is a mess!
-//                  I tried my best to clean it up but you might still find it confusing.
-//                  So, below is a map of the project! Hoo hoo hoo hee hee hee
-//                  -----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----
-//                              [debugMenu.h]
-//                                    |
-//                                    |---------------                        [module.cpp]
-//                                    |              |
-//                                    |           [main.h]
-//                                    |              |
-//                              |debugMenu.cpp|   |main.cpp|
-//                                 ||     ||      ||   -YOU ARE HERE-
-//                                 ||     ||      ||
-//                       [helpers.cpp]   |drawer.cpp|
-//                  -----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----
-
-// Explanation of sead::PrimitiveRenderer
-//    There is an instance of sead::PrimitiveRenderer setup in RootTask::prepare, but it is never used.
-//
-//    In debugMenu.cpp, we get the instance and set the needed components to make it work.
-//    In any function in the game, we should be able to just do something like this:
-//
-//    sead::PrimitiveRenderer *renderer = sead::PrimitiveRenderer::instance();
-//    if (renderer->mProjection) {
-//        renderer->begin();
-//        < draw here >
-//        renderer->end();
-//    }
+/*
+ * ⨻WARNING!⨻ ->  This project is a mess!
+ *                  I tried my best to clean it up but you might still find it confusing.
+ *                  So, below is a map of the project! Hoo hoo hoo hee hee hee
+ *                  -----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----
+ *                              [debugMenu.h]
+ *                                    |
+ *                                    |---------------                        [module.cpp]
+ *                                    |              |
+ *                                    |           [main.h]
+ *                                    |              |
+ *                              |debugMenu.cpp|   |main.cpp|
+ *                                 ||     ||      ||   -YOU ARE HERE-
+ *                                 ||     ||      ||
+ *                       [helpers.cpp]   |drawer.cpp|
+ *                  -----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----
+ *
+ * Explanation of sead::PrimitiveRenderer
+ *    There is an instance of sead::PrimitiveRenderer setup in RootTask::prepare, but it is never used.
+ *
+ *    In debugMenu.cpp, we get the instance and set the needed components to make it work.
+ *    In any function in the game, we should be able to just do something like this:
+ *
+ *    sead::PrimitiveRenderer *renderer = sead::PrimitiveRenderer::instance();
+ *    if (renderer->mProjection) {
+ *        renderer->begin();
+ *        < draw here >
+ *        renderer->end();
+ *    }
+ */
 
 // Toggles for showing the debug menu (TextWriter) and different areas (PrimitiveRenderer)
 bool showMenu = true;
 bool showAreas = true;
-bool show2DMoveAreas = true;
-bool showWaterAreas = true;
-bool showDeathAreas = true;
-bool showWarpAreas = true;
-bool showMissRestartAreas = true;
-bool showRaceCourseOutAreas = true;
-bool showChangeStageAreas = true;
-bool showCameraAreas = true;
-bool showTransparentWalls = true;
-bool enableFadeoff = true;
+bool show2DMoveAreas = false;
+bool showWaterAreas = false;
+bool showDeathAreas = false;
+bool showWarpAreas = false;
+bool showMissRestartAreas = false;
+bool showRaceCourseOutAreas = false;
+bool showChangeStageAreas = false;
+bool showCameraAreas = false;
+bool showTransparentWalls = false;
+bool enableFadeoff = false;
+bool showHitSensors = true;
+bool isEnableEye = true;
 
 bool isInGame = false;
 
@@ -52,21 +58,22 @@ void stageSceneControl(StageScene* stageScene)
 
     isInGame = true;
 
-    // Inputs
-    // D-UP     > Toggle menu
-    // D-LEFT   > Toggle current rendering
-    // D-RIGHT  > Toggle camera areas
-
-    // (L) D-UP     > Toggle change areas
-    // (L) D-LEFT   > Toggle water areas
-    // (L) D-RIGHT  > Toggle death areas
-
-    // (R) D-UP     > Toggle 2DMove areas
-    // (R) D-LEFT   > Toggle TransparentWalls
-    // (R) D-RIGHT  > Toggle race miss areas
-
-    // (L+R) D-LEFT > Toggle alpha fade-off
-
+    /*
+     * Inputs
+     * D-UP     > Toggle menu
+     * D-LEFT   > Toggle current rendering
+     * D-RIGHT  > Toggle camera areas
+     *
+     * (L) D-UP     > Toggle change areas
+     * (L) D-LEFT   > Toggle water areas
+     * (L) D-RIGHT  > Toggle death areas
+     *
+     * (R) D-UP     > Toggle 2DMove areas
+     * (R) D-LEFT   > Toggle TransparentWalls
+     * (R) D-RIGHT  > Toggle race miss areas
+     *
+     * (L+R) D-LEFT > Toggle alpha fade-off
+     */
     if (al::isPadHoldL(-1) && al::isPadHoldR(-1)) {
         if (al::isPadTriggerLeft(-1))
             enableFadeoff = !enableFadeoff;
@@ -89,9 +96,14 @@ void stageSceneControl(StageScene* stageScene)
     } else {
         if (al::isPadTriggerUp(-1))
             showMenu = !showMenu;
-        if (al::isPadTriggerLeft(-1))
+        if (al::isPadTriggerLeft(-1)) {
             showAreas = !showAreas;
+            showHitSensors = !showHitSensors;
+            isEnableEye = !isEnableEye;
+        }
         if (al::isPadTriggerRight(-1))
             showCameraAreas = !showCameraAreas;
     }
+    
 }
+

@@ -120,6 +120,9 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         gTextWriter->printf("Mario Velocity:\nX: %f\nY: %f\nZ: %f\n", playerVel->x, playerVel->y, playerVel->z);
         gTextWriter->printf("Mario Rotation:\nX: %f\nY: %f\nZ: %f\n", playerRot.x, playerRot.y, playerRot.z);
         gTextWriter->printf("Horizontal Speed: %f\n", al::calcSpeedH(player));
+        gTextWriter->printf("HitSensorKeeperGroup: %i\n", player->mHitSensorKeeper->mSensorKeeperNum);
+        gTextWriter->printf("HitSensorNum: %i\n", player->mHitSensorKeeper->mSensorNum);
+
 
         gTextWriter->endDraw();
     }
@@ -155,7 +158,7 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         sead::Vector3f &playerTrans = al::getTrans(player);
 
         if (showAreas)
-            renderer->drawSphere8x16(playerTrans, 20, color); // Draws a sphere at Mario's location
+            renderer->drawSphere8x16(playerTrans, 5, color); // Draws a sphere at Mario's location
 
         if (showAreas)
             renderer->drawAxis(sead::Vector3f(0, 0, 0), 200); // Draws a 3-line axis at 0 0 0
@@ -199,6 +202,11 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
 
             if (showCameraAreas)
                 tryDrawAreaGroup(curScene, "CameraArea", false, sead::Color4f(255, 255, 255, 1), sead::Color4f(0, 0, 255, .1), sead::Color4f(0, 0, 255, .1));
+        }
+    
+        if (showHitSensors) {
+            tryDrawActorHitsensors(player, sead::Color4f(255,0,0,0.4), sead::Color4f(0,255,0,1));
+            tryDrawActorHitsensors(player->mHackCap, sead::Color4f(0,0,255,0.4), sead::Color4f(0,255,0,1));
         }
     }
 

@@ -23,6 +23,7 @@
 #include "PlayerFormSensorCollisionArranger.h"
 #include "PlayerInitInfo.h"
 #include "PlayerRecoverySafetyPoint.h"
+#include "PlayerStates.h"
 
 #include "Attacks/PlayerSpinCapAttack.h"
 
@@ -104,14 +105,9 @@ class PlayerStateWait;
 class PlayerStateSquat;
 class PlayerStateRunHakoniwa2D3D;
 class PlayerStateSlope;
-class PlayerStateRolling;
 class PlayerStateSpinCap;
-class PlayerStateJump;
 class PlayerStateCapCatchPop;
 class PlayerStateWallAir;
-class PlayerStateWallCatch;
-class PlayerStateGrabCeil;
-class PlayerStatePoleClimb;
 class PlayerStateHipDrop;
 class PlayerStateHeadSliding;
 class PlayerStateLongJump;
@@ -120,7 +116,6 @@ class PlayerStateSandSink;
 class ActorStateSandGeyser;
 class PlayerStateRise;
 class PlayerStateSwim;
-class PlayerStateDamageLife;
 class PlayerStateDamageSwim;
 class PlayerStateDamageFire;
 class PlayerStatePress;

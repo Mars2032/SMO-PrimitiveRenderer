@@ -97,6 +97,10 @@ namespace al
     sead::Vector3f &getScaleY(al::LiveActor const*);
     sead::Vector3f &getScaleZ(al::LiveActor const*);
     
+    sead::Vector3f* getSensorPos(al::LiveActor const*, const char*);
+    sead::Vector3f* getSensorPos(al::HitSensor const*);
+    float getSensorRadius(al::HitSensor const*);
+    float getSensorRadius(al::LiveActor const*, const char*);
 
     void setTrans(al::LiveActor *,float,float,float);
     void setTransX(al::LiveActor *,float);
@@ -249,6 +253,8 @@ namespace al
     bool isMsgPlayerTrampleReflect(al::SensorMsg const *);
 
     bool isSensorPlayerAttack(al::HitSensor const *targetSensor);
+    bool isSensorPlayerEye(al::HitSensor const*);
+    bool isSensorEye(al::HitSensor const*);
 
     bool sendMsgPlayerHipDropKnockDown(al::HitSensor *target, al::HitSensor *source);
 
@@ -329,6 +335,8 @@ namespace al
     bool isActiveDemo(al::Scene const *);
 
     bool isInWaterPos(al::LiveActor const*, sead::Vector3f const &);
+
+    bool isSensorValid(al::HitSensor const*);
 
     // interpolation functions
 

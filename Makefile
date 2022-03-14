@@ -18,9 +18,9 @@ starlight:
 	mkdir -p starlight_patch_$(S2VER)/atmosphere/exefs_patches/$(PROJNAME)/
 	mkdir -p starlight_patch_$(S2VER)/atmosphere/contents/0100000000010000/exefs/
 	
-	mv starlight_patch_$(S2VER)/3CA12DFAAF9C82DA064D1698DF79CDA1.ips 3CA12DFAAF9C82DA064D1698DF79CDA1.ips
-	mv $(shell basename $(CURDIR))$(S2VER).elf subsdk1.elf
-	mv $(shell basename $(CURDIR))$(S2VER).nso subsdk1
+	mv starlight_patch_$(S2VER)/3CA12DFAAF9C82DA064D1698DF79CDA1.ips starlight_patch_$(S2VER)/atmosphere/exefs_patches/$(PROJNAME)/3CA12DFAAF9C82DA064D1698DF79CDA1.ips
+	mv $(shell basename $(CURDIR))$(S2VER).elf starlight_patch_$(S2VER)/subsdk1.elf
+	mv $(shell basename $(CURDIR))$(S2VER).nso starlight_patch_$(S2VER)/atmosphere/contents/0100000000010000/exefs/subsdk1
 
 starlight_patch_$(S2VER)/*.ips: patches/*.slpatch patches/configs/$(S2VER).config patches/maps/$(S2VER)/*.map \
 								build$(S2VER)/$(shell basename $(CURDIR))$(S2VER).map scripts/genPatch.py
