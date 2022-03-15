@@ -79,7 +79,7 @@ bool tryDrawActorHitsensors(al::LiveActor* actor,
 
     if (actor->mHitSensorKeeper) {
         PlayerActorHakoniwa* player = al::getPlayerActor(actor, 0);
-        if (al::calcDistance(player, actor) < 5000.0f) {
+        if (al::calcDistance(player, actor) < 3000.0f) {
             al::HitSensor** sensors = actor->mHitSensorKeeper->mSensors;
             int sensorNum = actor->mHitSensorKeeper->mSensorNum;
             for (int i = 0; i < sensorNum; i++) {

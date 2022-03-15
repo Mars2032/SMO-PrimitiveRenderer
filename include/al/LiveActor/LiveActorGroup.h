@@ -1,6 +1,7 @@
 #pragma once
 
 #include "al/hio/HioNode.h"
+#include "sead/container/seadPtrArray.h"
 
 namespace al
 {
@@ -13,9 +14,7 @@ namespace al
 
         virtual void registerActor(al::LiveActor *);
 
-        const char* mGroupName; // _8
-        int mMaxActorCount; // _10
-        int mActorCount; // _14
-        al::LiveActor** mActors; // _18
+        const char* mGroupName; // 0x8
+        sead::PtrArray<al::LiveActor> mActors; // 0x10
     };
 };
