@@ -125,7 +125,7 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         gTextWriter->printf("Mario Velocity:\nX: %f\nY: %f\nZ: %f\n", playerVel->x, playerVel->y, playerVel->z);
         gTextWriter->printf("Mario Rotation:\nX: %f\nY: %f\nZ: %f\n", playerRot.x, playerRot.y, playerRot.z);
         gTextWriter->printf("Horizontal Speed: %f\n", al::calcSpeedH(player));
-        if (wires[0]) gTextWriter->printf("ElectricWireTarget Name: %s\n", wires[0]->mActorName);
+        
         
 
 
