@@ -3,6 +3,7 @@
 #include "game/Player/PlayerActorHakoniwa.h"
 #include "sead/math/seadVector.h"
 #include "al/scene/SceneObjHolder.h"
+#include "game/Actors/CheckpointFlag.h"
 
 namespace al
 {
@@ -18,6 +19,8 @@ namespace rs
 
     PlayerActorHakoniwa* getPlayerActor(const al::Scene *);
 	sead::Vector3f *getPlayerPos(al::LiveActor const*);
+
+	void registerCheckpointFlagToWatcher(CheckpointFlag*);
 
     bool isInChangeStageArea(al::LiveActor const*, sead::Vector3f const *);
 

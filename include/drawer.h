@@ -9,4 +9,4 @@
 #include "main.h"
 
 bool tryDrawAreaGroup(al::Scene *curScene, char const *area, bool isDrawSolid, sead::Color4f wire, sead::Color4f solid, sead::Color4f cyl);
-bool tryDrawActorHitsensors(al::LiveActor* actor, sead::Color4f body, sead::Color4f eye);
+bool tryDrawActorHitsensors(al::LiveActor* actor, sead::Color4f body, sead::Color4f eye, sead::Color4f attack);

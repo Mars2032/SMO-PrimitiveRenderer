@@ -36,19 +36,20 @@
 
 // Toggles for showing the debug menu (TextWriter) and different areas (PrimitiveRenderer)
 bool showMenu = true;
-bool showAreas = true;
-bool show2DMoveAreas = false;
-bool showWaterAreas = false;
-bool showDeathAreas = false;
-bool showWarpAreas = false;
-bool showMissRestartAreas = false;
-bool showRaceCourseOutAreas = false;
-bool showChangeStageAreas = false;
-bool showCameraAreas = false;
-bool showTransparentWalls = false;
-bool enableFadeoff = false;
+bool showAreas = false;
+bool show2DMoveAreas = true;
+bool showWaterAreas = true;
+bool showDeathAreas = true;
+bool showWarpAreas = true;
+bool showMissRestartAreas = true;
+bool showRaceCourseOutAreas = true;
+bool showChangeStageAreas = true;
+bool showCameraAreas = true;
+bool showTransparentWalls = true;
+bool enableFadeoff = true;
 bool showHitSensors = true;
-bool isEnableEye = true;
+bool isShowEyes = true;
+bool isShowAttacks = true;
 
 bool isInGame = false;
 
@@ -99,10 +100,13 @@ void stageSceneControl(StageScene* stageScene)
         if (al::isPadTriggerLeft(-1)) {
             showAreas = !showAreas;
             showHitSensors = !showHitSensors;
-            isEnableEye = !isEnableEye;
+            isShowEyes = !isShowEyes;
+            isShowAttacks = !isShowAttacks;
         }
-        if (al::isPadTriggerRight(-1))
+        if (al::isPadTriggerRight(-1)) {
             showCameraAreas = !showCameraAreas;
+            isShowAttacks = !isShowAttacks;
+        }
     }
     
 }

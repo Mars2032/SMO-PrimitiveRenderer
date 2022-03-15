@@ -6,7 +6,28 @@ StageScene::control+18:
     BL createWallHook
 
 004CC788:
-    BL destroyWalls
+    BL destroyArrays
+
+001cef78:
+    BL createShineHook
+
+00249790:
+    BL createCheckpointFlagHook
+
+00241DE4:
+    BL createCapSwitchHook
+
+0038be10:
+    BL createFrogHook
+
+00267b90:
+    BL createElectricWireHook
+
+0015b138:
+    BL createKuriboWingHook
+
+001a99dc:
+    BL createChompHook
 
 00840720: // unclamps the snapshot mode border- makes things easier
     NOP

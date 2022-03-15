@@ -1,6 +1,12 @@
 #include "debugMenu.h"
 #include "drawer.h"
+#include "gfx/seadColor.h"
 #include "main.h"
+#include "game/Actors/Shine.h"
+#include "game/Actors/CheckpointFlag.h"
+
+#include "rs/util.hpp"
+#include "actorHooks.h"
 
 // These files must exist in your romfs! they are not there by default, and must be added in order for the debug font to work correctly.
 static const char *DBG_FONT_PATH = "DebugData/Font/nvn_font_jis1.ntx";
@@ -10,21 +16,16 @@ static const char *DBG_TBL_PATH = "DebugData/Font/nvn_font_jis1_tbl.bin";
 sead::TextWriter *gTextWriter;
 sead::PrimitiveDrawer *drawer;
 
-sead::PtrArray<TransparentWall> transparentWalls;
-
-void createWallHook(TransparentWall *wall) {
-    al::trySyncStageSwitchAppearAndKill(wall);
-
-    transparentWalls.pushBack(wall);
-}
-
-void destroyWalls() {
-    transparentWalls.freeBuffer();
-    __asm("MOV X0, X19");
-}
-
 void setupDebugMenu(GameSystem *gSys) {
     transparentWalls.tryAllocBuffer(50, nullptr);
+    shines.tryAllocBuffer(50, nullptr);
+    checkpoints.tryAllocBuffer(50, nullptr);
+    capSwitches.tryAllocBuffer(50, nullptr);
+    frogs.tryAllocBuffer(50, nullptr);
+    wires.tryAllocBuffer(50, nullptr);
+    kuriboWings.tryAllocBuffer(50, nullptr);
+    chomps.tryAllocBuffer(50, nullptr);
+
     // gLogger->LOG("Preparing Debug Menu.\n");
 
     sead::Heap *curHeap = al::getCurrentHeap();
@@ -120,8 +121,8 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         gTextWriter->printf("Mario Velocity:\nX: %f\nY: %f\nZ: %f\n", playerVel->x, playerVel->y, playerVel->z);
         gTextWriter->printf("Mario Rotation:\nX: %f\nY: %f\nZ: %f\n", playerRot.x, playerRot.y, playerRot.z);
         gTextWriter->printf("Horizontal Speed: %f\n", al::calcSpeedH(player));
-        gTextWriter->printf("HitSensorKeeperGroup: %i\n", player->mHitSensorKeeper->mSensorKeeperNum);
-        gTextWriter->printf("HitSensorNum: %i\n", player->mHitSensorKeeper->mSensorNum);
+        if (wires[0]) gTextWriter->printf("ElectricWireTarget Name: %s\n", wires[0]->mActorName);
+        
 
 
         gTextWriter->endDraw();
@@ -205,8 +206,43 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         }
     
         if (showHitSensors) {
-            tryDrawActorHitsensors(player, sead::Color4f(255,0,0,0.4), sead::Color4f(0,255,0,1));
-            tryDrawActorHitsensors(player->mHackCap, sead::Color4f(0,0,255,0.4), sead::Color4f(0,255,0,1));
+            tryDrawActorHitsensors(player, sead::Color4f(1,0,0,0.3), sead::Color4f(0,1,0,1), sead::Color4f(0,1,1,0.2));
+            tryDrawActorHitsensors(player->mHackCap, sead::Color4f(0,0,1,0.3), sead::Color4f(0,1,0,1), sead::Color4f(0,1,1,0.2));
+            if (shines[0]) {
+                for(int i = 0; i < shines.size(); i++) {
+                    tryDrawActorHitsensors(shines[i], sead::Color4f(1,1,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(1,0,0,0.2));
+                }
+            }
+            if (checkpoints[0]) {
+                for(int i = 0; i < checkpoints.size(); i++) {
+                    tryDrawActorHitsensors(checkpoints[i], sead::Color4f(1,0,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(0,1,1,0.2));
+                }
+            }
+            if (capSwitches[0]) {
+                for(int i = 0; i < capSwitches.size(); i++) {
+                    tryDrawActorHitsensors(capSwitches[i], sead::Color4f(1,0,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(0,1,1,0.2));
+                }
+            }
+            if (frogs[0]) {
+                for(int i = 0; i < frogs.size(); i++) {
+                    tryDrawActorHitsensors(frogs[i], sead::Color4f(0,1,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(0,1,1,0.2));
+                }
+            }
+            if (wires[0]) {
+                for(int i = 0; i < wires.size(); i++) {
+                    tryDrawActorHitsensors(wires[i], sead::Color4f(1,1,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(0,1,1,0.2));
+                }
+            }
+            if (kuriboWings[0]) {
+                for(int i = 0; i < kuriboWings.size(); i++) {
+                    tryDrawActorHitsensors(kuriboWings[i], sead::Color4f(1,0,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(0,1,1,0.2));
+                }
+            }
+            if (chomps[0]) {
+                for(int i = 0; i < chomps.size(); i++) {
+                    tryDrawActorHitsensors(chomps[i], sead::Color4f(1,0,0,0.3), sead::Color4f(1,0,0,1), sead::Color4f(0,1,1,0.2));
+                }
+            }
         }
     }
 

@@ -255,6 +255,7 @@ namespace al
     bool isSensorPlayerAttack(al::HitSensor const *targetSensor);
     bool isSensorPlayerEye(al::HitSensor const*);
     bool isSensorEye(al::HitSensor const*);
+    bool isSensorEnemyAttack(al::HitSensor const*);
 
     bool sendMsgPlayerHipDropKnockDown(al::HitSensor *target, al::HitSensor *source);
 
@@ -295,6 +296,8 @@ namespace al
 
     bool isInAreaObj(al::LiveActor const *, const char *);
 
+    bool tryListenStageSwitchKill(al::LiveActor*);
+
     al::AreaObj *tryFindAreaObj(al::LiveActor const *, const char *);
 
     bool tryGetAreaObjArg(int *, al::AreaObj const *, const char *);
@@ -313,6 +316,10 @@ namespace al
     void startSe(al::IUseAudioKeeper const *, sead::SafeStringBase<char> const &);
 
     void startHitReaction(al::LiveActor const *, char const*);
+
+    void hideSilhouetteModelIfShow(al::LiveActor*);
+    void setSyncRailToNearestPos(al::LiveActor*);
+    void hideModel(al::LiveActor*);
 
     bool isInDeathArea(al::LiveActor const *);
 

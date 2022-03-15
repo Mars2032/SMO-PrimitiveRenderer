@@ -21,6 +21,7 @@ extern bool showCameraAreas;
 extern bool showTransparentWalls;
 extern bool enableFadeoff;
 extern bool showHitSensors;
-extern bool isEnableEye;
+extern bool isShowEyes;
+extern bool isShowAttacks;
 
 extern bool isInGame;

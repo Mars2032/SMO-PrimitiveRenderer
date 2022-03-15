@@ -166,7 +166,7 @@ class PlayerJudgeWallKeep;
 class PlayerActorHakoniwa : public PlayerActorBase, public IUseDimension {
     public: 
 
-    _BYTE gap_0[0x50];
+    _BYTE gap_0[0x58];
     PlayerInfo *mPlayerInfo; // 0x128
     PlayerConst *mPlayerConst;
     PlayerInput *mPlayerInput;

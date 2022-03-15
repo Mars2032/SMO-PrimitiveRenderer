@@ -195,6 +195,7 @@ class HackCap : public al::LiveActor {
         void exeBlow(void);
 
         unsigned char padding_118[0x118 - HACKSIZE];
+        unsigned char padding_08[0x8];
         al::LiveActor *mActorA; // 0x118
         unsigned char padding_8[0x8];
         PlayerActorHakoniwa *mPlayerActor; // 0x128
