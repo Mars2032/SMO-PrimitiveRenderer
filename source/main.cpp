@@ -2,6 +2,7 @@
 #include "al/util.hpp"
 #include "al/scene/Scene.h"
 #include "game/StageScene/StageScene.h"
+#include "game/GameData/GameDataFunction.h"
 
 /*
  * ⨻WARNING!⨻ ->  This project is a mess!
@@ -50,14 +51,18 @@ bool enableFadeoff = true;
 bool showHitSensors = true;
 bool isShowEyes = true;
 bool isShowAttacks = true;
+bool isInScene = false;
 
 bool isInGame = false;
+
+int timer = 120;
 
 void stageSceneControl(StageScene* stageScene)
 {
     __asm("MOV X19, X0"); // Execute the instruction we just replaced
 
     isInGame = true;
+    isInScene = true;
 
     /*
      * Inputs
@@ -108,6 +113,14 @@ void stageSceneControl(StageScene* stageScene)
             isShowAttacks = !isShowAttacks;
         }
     }
+    if (timer > 0) timer--;
     
 }
 
+HOOK_ATTR
+bool sceneKillHook(GameDataHolderAccessor value)
+{
+    timer = 120;
+    isInScene = false;
+    return GameDataFunction::isMissEndPrevStageForSceneDead(value);
+}

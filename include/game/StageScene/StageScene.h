@@ -5,6 +5,8 @@
 #include "sead/prim/seadSafeString.h"
 #include "types.h"
 
+// #define __int64_t __int64
+
 //#define INHERITSIZE sizeof(al::Scene)
 
 /*
@@ -169,12 +171,12 @@ class StageScene : public al::Scene
     al::SimpleLayoutAppearWaitEnd *mMenuLayout; // 378
     al::LiveActorGroup *mShoppingWatcher; // 380
     CollectionList *mCollectionList; // 388
-    __int64_t unkNoIdea; // 390
+    _BYTE unkNoIdea[0x8]; // 390
     TimeBalloonNpc *mTimeBalloonNpc; // 398 // placement for this object 004C9844
     ProjectItemDirector *mProjectItemDirector; // 3A0
     Pyramid *mPyramid; // 3A8
     OpeningStageStartDemo *mOpeningStageStartDemo; // 3B0 // can also be DemoStartWorldWaterfallStage
-    __int64_t nerveExeDemoStageStart; // 3B8
+    _BYTE nerveExeDemoStageStart[0x8]; // 3B8
     SceneAudioSystemPauseController *mSceneAudioSystemPauseController; // 3C0
     DemoSoundSynchronizer *mDemoSoundSynchronizer; // 3C8
     al::SimpleAudioUser *mAudioStageStartAtmosSe; // 3D0
@@ -184,7 +186,7 @@ class StageScene : public al::Scene
     _BYTE gap_3F0[0x8]; // 3F0
     TimeBalloonDirector *mTimeBalloonDirector; // 3F8
     TimeBalloonSequenceInfo *mTimeBalloonSequenceInfo; // 400
-    __int64_t unkSomethingElse; // 408
+    _BYTE unkSomethingElse[0x8]; // 408
     al::CameraTicket *mWarpCheckpointCamera; // 410
     sead::Vector3f *mWarpToCheckpointCamera; // 418
     sead::Vector3f *mWarpToCheckpointCameraPoint; // 420

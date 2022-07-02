@@ -40,7 +40,7 @@ namespace al
         
         //unsigned char _28[0xD8-0x28];
 		bool *isAlive; // 28
-		__int64_t unkString; // 30
+		_BYTE unkString[0x8]; // 30
 		unsigned char unk[0x50]; // 38 to 88
 		al::StageResourceKeeper *mStageResourceKeeper; // 88
 		al::LiveActorKit *mSceneLiveActorKit; // 90

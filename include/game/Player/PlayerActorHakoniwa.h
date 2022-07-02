@@ -165,136 +165,187 @@ class PlayerJudgeWallKeep;
 
 class PlayerActorHakoniwa : public PlayerActorBase, public IUseDimension {
     public: 
+    
+    void attackSensor(al::HitSensor*, al::HitSensor*);
+    void cancelHackPlayerPupperDemo();
+    void checkDamageFromCollision();
+    bool checkDeathArea();
+    void control();
+    void endDemo();
+    void endDemoHack();
+    void endDemoKeepBind();
+    void endDemoKeepCarry();
+    void endDemoMainShineGet();
+    void endDemoPuppetable();
+    void endDemoShineGet();
+    void endPlayerPuppet();
+
+    // all nerve functions
+    void exeAbyss();
+    void exeBind();
+    void exeCamera();
+    void exeCapCatchPop();
+    void exeDamage();
+    void exeDamageFire();
+    void exeDamageSwim();
+    void exeDead();
+    void exeDemo();
+    void exeEndHack();
+    void exeFall();
+    void exeGrabCeil();
+    void exeHack();
+    void exeHeadSliding();
+    void exeHipDrop();
+    void exeJump();
+    void exeLongJump();
+    void exePoleClimb();
+    void exePress();
+    void exeRise();
+    void exeRolling();
+    void exeRun();
+    void exeSandGeyser();
+    void exeSandSink();
+    void exeSlope();
+    void exeSpinCap();
+    void exeSquat();
+    void exeSwim();
+    void exeWait();
+    void exeWallAir();
+    void exeWallCatch();
+
+    void executeAfterCapTarget();
+    void executePreMovementNerveChange();
+    
 
     _BYTE gap_0[0x58];
-    PlayerInfo *mPlayerInfo; // 0x128
-    PlayerConst *mPlayerConst;
-    PlayerInput *mPlayerInput;
-    PlayerTrigger *mPlayerTrigger;
-    HackCap *mHackCap;
-    ActorDimensionKeeper *mActorDimensionKeeper;
-    PlayerModelHolder *mModelHolder;
-    PlayerModelChangerHakoniwa *mModelChangerHakoniwa;
-    PlayerAnimator *mAnimator;
-    PlayerColliderHakoniwa *mColliderHakoniwa;
-    PlayerPuppet *mPuppet;
-    PlayerAreaChecker *mAreaChecker;
-    al::WaterSurfaceFinder *mSurfaceFinder;
-    PlayerOxygen *mOxygen;
-    PlayerDamageKeeper *mDamageKeeper;
-    PlayerDemoActionFlag *mDemoActionFlag;
-    PlayerCapActionHistory *mCapActionHistory;
-    PlayerCapManHeroEyesControl *mCapManHeroEyesControl;
-    PlayerContinuousJump *mContinuousJump;
-    PlayerContinuousLongJump *mContinuousLongJump;
-    PlayerCounterAfterUpperPunch *mCounterAfterUpperPunch;
-    PlayerCounterAfterCapCatch *mCounterAfterCapCatch;
-    PlayerCounterIceWater *mCounterIceWater;
-    PlayerCounterQuickTurnJump *mCounterQuickTurnJump;
-    PlayerWallActionHistory *mWallActionHistory;
-    PlayerBindKeeper *mBindKeeper;
-    PlayerCarryKeeper *mCarryKeeper;
-    PlayerEquipmentUser *mEquipmentUser;
-    PlayerHackKeeper *mHackKeeper;
-    PlayerFormSensorCollisionArranger *mFormSensorCollisionArranger;
-    PlayerJumpMessageRequest *mJumpMessageRequest;
-    PlayerSandSinkAffect *mSandSinkAffect;
-    PlayerSpinCapAttack *mSpinCapAttack;
-    PlayerActionDiveInWater *mActionDiveInWater;
-    PlayerEffect *mEffect;
-    PlayerEyeSensorHitHolder *mEyeSensorHitHolder;
-    PlayerPushReceiver *mPushReciever;
-    PlayerHitPush *mHitPush;
-    PlayerExternalVelocity *mExternalVelocity;
-    PlayerJointControlKeeper *mJointControlKeeper;
-    PlayerPainPartsKeeper *mPainPartsKeeper;
-    PlayerRecoverySafetyPoint *mRecoverySafetyPoint;
-    PlayerRippleGenerator *mRippleGenerator;
-    PlayerSeparateCapFlag *mSeparateCapFlag;
-    PlayerWetControl *mWetControl;
-    PlayerStainControl *mStainControl;
-    al::FootPrintHolder *mFootPrintHolder;
-    GaugeAir *mGaugeAir;
-    WaterSurfaceShadow *mWaterSurfaceShadow;
-    WorldEndBorderKeeper *mWorldEndBorderKeeper;
-    al::HitSensor *unkSensor;
-    PlayerSeCtrl *mPlayerSeCtrl;
-    al::HitSensor *unkSensor2;
-    bool *isLongShadow;
+    PlayerInfo *mPlayerInfo;                                                // 0x128
+    PlayerConst *mPlayerConst;                                              // 0x130
+    PlayerInput *mPlayerInput;                                              // 0x138
+    PlayerTrigger *mPlayerTrigger;                                          // 0x140
+    HackCap *mHackCap;                                                      // 0x148
+    ActorDimensionKeeper *mActorDimensionKeeper;                            // 0x150
+    PlayerModelHolder *mModelHolder;                                        // 0x158
+    PlayerModelChangerHakoniwa *mModelChangerHakoniwa;                      // 0x160
+    PlayerAnimator *mAnimator;                                              // 0x168
+    PlayerColliderHakoniwa *mColliderHakoniwa;                              // 0x170
+    PlayerPuppet *mPuppet;                                                  // 0x178
+    PlayerAreaChecker *mAreaChecker;                                        // 0x180
+    al::WaterSurfaceFinder *mSurfaceFinder;                                 // 0x188
+    PlayerOxygen *mOxygen;                                                  // 0x190
+    PlayerDamageKeeper *mDamageKeeper;                                      // 0x198
+    PlayerDemoActionFlag *mDemoActionFlag;                                  // 0x1A0
+    PlayerCapActionHistory *mCapActionHistory;                              // 0x1A8
+    PlayerCapManHeroEyesControl *mCapManHeroEyesControl;                    // 0x1B0
+    PlayerContinuousJump *mContinuousJump;                                  // 0x1B8
+    PlayerContinuousLongJump *mContinuousLongJump;                          // 0x1C0
+    PlayerCounterAfterUpperPunch *mCounterAfterUpperPunch;                  // 0x1C8
+    PlayerCounterAfterCapCatch *mCounterAfterCapCatch;                      // 0x1D0
+    PlayerCounterIceWater *mCounterIceWater;                                // 0x1D8
+    PlayerCounterQuickTurnJump *mCounterQuickTurnJump;                      // 0x1E0
+    PlayerWallActionHistory *mWallActionHistory;                            // 0x1E8
+    PlayerBindKeeper *mBindKeeper;                                          // 0x1F0
+    PlayerCarryKeeper *mCarryKeeper;                                        // 0x1F8
+    PlayerEquipmentUser *mEquipmentUser;                                    // 0x200
+    PlayerHackKeeper *mHackKeeper;                                          // 0x208
+    PlayerFormSensorCollisionArranger *mFormSensorCollisionArranger;        // 0x210
+    PlayerJumpMessageRequest *mJumpMessageRequest;                          // 0x218
+    PlayerSandSinkAffect *mSandSinkAffect;                                  // 0x220
+    PlayerSpinCapAttack *mSpinCapAttack;                                    // 0x228
+    PlayerActionDiveInWater *mActionDiveInWater;                            // 0x230
+    PlayerEffect *mEffect;                                                  // 0x238
+    PlayerEyeSensorHitHolder *mEyeSensorHitHolder;                          // 0x240
+    PlayerPushReceiver *mPushReceiver;                                      // 0x248
+    PlayerHitPush *mHitPush;                                                // 0x250
+    PlayerExternalVelocity *mExternalVelocity;                              // 0x258
+    PlayerJointControlKeeper *mJointControlKeeper;                          // 0x260
+    PlayerPainPartsKeeper *mPainPartsKeeper;                                // 0x268
+    PlayerRecoverySafetyPoint *mRecoverySafetyPoint;                        // 0x270
+    PlayerRippleGenerator *mRippleGenerator;                                // 0x278
+    PlayerSeparateCapFlag *mSeparateCapFlag;                                // 0x280
+    PlayerWetControl *mWetControl;                                          // 0x288
+    PlayerStainControl *mStainControl;                                      // 0x290
+    al::FootPrintHolder *mFootPrintHolder;                                  // 0x298
+    GaugeAir *mGaugeAir;                                                    // 0x2A0
+    WaterSurfaceShadow *mWaterSurfaceShadow;                                // 0x2A8
+    WorldEndBorderKeeper *mWorldEndBorderKeeper;                            // 0x2B0
+    al::HitSensor *unkSensor;                                               // 0x2B8
+    PlayerSeCtrl *mPlayerSeCtrl;                                            // 0x2C0
+    al::HitSensor *unkSensor2;                                              // 0x2C8
+    bool *isLongShadow;                                                     // 0x2D0
 
-    // States
-    PlayerStateWait *stateWait; // 0x2D8
-    PlayerStateSquat *stateSquat;
-    PlayerStateRunHakoniwa2D3D *stateRunHakoniwa2D3D;
-    PlayerStateSlope *stateSlope;
-    PlayerStateRolling *stateRolling;
-    PlayerStateSpinCap *stateSpinCap;
-    PlayerStateJump *stateJump;
-    PlayerStateCapCatchPop *stateCapCatchPop;
-    PlayerStateWallAir *stateWallAir;
-    PlayerStateWallCatch *stateWallCatch;
-    PlayerStateGrabCeil *stateGrabCeil;
-    PlayerStatePoleClimb *statePoleClimb;
-    PlayerStateHipDrop *stateHipDrop;
-    PlayerStateHeadSliding *stateHeadSliding;
-    PlayerStateLongJump *stateLongJump;
-    PlayerStateFallHakoniwa *stateFallHakoniwa;
-    PlayerStateSandSink *stateSandSink;
-    ActorStateSandGeyser *stateSandGeyser;
-    PlayerStateRise *stateRise;
-    PlayerStateSwim *stateSwim;
-    PlayerStateDamageLife *stateDamageLife;
-    PlayerStateDamageSwim *stateDamageSwim;
-    PlayerStateDamageFire *stateDamageFire;
-    PlayerStatePress *statePress;
-    PlayerStateBind *stateBind;
-    PlayerStateHack *stateHack;
-    PlayerStateEndHack *stateEndHack;
-    PlayerStateCameraSubjective *stateCameraSubjective;
-    PlayerStateAbyss *stateAbyss; // 0x3B8
+    // States                    
+    PlayerStateWait *stateWait;                                             // 0x2D8
+    PlayerStateSquat *stateSquat;                                           // 0x2E0
+    PlayerStateRunHakoniwa2D3D *stateRunHakoniwa2D3D;                       // 0x2E8
+    PlayerStateSlope *stateSlope;                                           // 0x2F0
+    PlayerStateRolling *stateRolling;                                       // 0x2F8
+    PlayerStateSpinCap *stateSpinCap;                                       // 0x300
+    PlayerStateJump *stateJump;                                             // 0x308
+    PlayerStateCapCatchPop *stateCapCatchPop;                               // 0x310
+    PlayerStateWallAir *stateWallAir;                                       // 0x318
+    PlayerStateWallCatch *stateWallCatch;                                   // 0x320
+    PlayerStateGrabCeil *stateGrabCeil;                                     // 0x328
+    PlayerStatePoleClimb *statePoleClimb;                                   // 0x330
+    PlayerStateHipDrop *stateHipDrop;                                       // 0x338
+    PlayerStateHeadSliding *stateHeadSliding;                               // 0x340
+    PlayerStateLongJump *stateLongJump;                                     // 0x348
+    PlayerStateFallHakoniwa *stateFallHakoniwa;                             // 0x350
+    PlayerStateSandSink *stateSandSink;                                     // 0x358
+    ActorStateSandGeyser *stateSandGeyser;                                  // 0x360
+    PlayerStateRise *stateRise;                                             // 0x368
+    PlayerStateSwim *stateSwim;                                             // 0x370
+    PlayerStateDamageLife *stateDamageLife;                                 // 0x378
+    PlayerStateDamageSwim *stateDamageSwim;                                 // 0x380
+    PlayerStateDamageFire *stateDamageFire;                                 // 0x388
+    PlayerStatePress *statePress;                                           // 0x390
+    PlayerStateBind *stateBind;                                             // 0x398
+    PlayerStateHack *stateHack;                                             // 0x3A0
+    PlayerStateEndHack *stateEndHack;                                       // 0x3A8
+    PlayerStateCameraSubjective *stateCameraSubjective;                     // 0x3B0
+    PlayerStateAbyss *stateAbyss;                                           // 0x3B8
 
-    // Judges
-    PlayerJudgeAirForceCount *judgeAirForceCount;
-    PlayerJudgeCameraSubjective *judgeCameraSubjective;
-    PlayerJudgeCapCatchPop *judgeCapCatchPop;
-    PlayerJudgeDeadWipeStart *judgeDeadWipeStart;
-    PlayerJudgeDirectRolling *judgeDirectRolling;
-    PlayerJudgeEnableStandUp *judgeEnableStandUp;
-    PlayerJudgeForceLand *judgeForceLand;
-    PlayerJudgeForceSlopeSlide *judgeForceSlopeSlide;
-    PlayerJudgeForceRolling *judgeForceRolling;
-    PlayerJudgeGrabCeil *judgeGrabCeil;
-    PlayerJudgeInWater *judgeInWater;
-    PlayerJudgeInWater *judgeInWater2;
-    PlayerJudgeInWater *judgeInWater3;
-    PlayerJudgeInWater *judgeInWater4;
-    PlayerJudgeInvalidateInputFall *judgeInvalidateInputFall;
-    PlayerJudgeLongFall *judgeLongFall;
-    PlayerJudgeOutInWater *judgeOutInWater;
-    PlayerJudgeRecoveryLifeFast *judgeRecoveryLifeFast;
-    PlayerJudgeSandSink *judgeSandSink;
-    PlayerJudgeSpeedCheckFall *judgeSpeedCheckFall;
-    PlayerJudgeStartHipDrop *judgeStartHipDrop;
-    PlayerJudgeStartRise *judgeStartRise;
-    PlayerJudgeStartRolling *judgeStartRolling;
-    PlayerJudgeStartRun *judgeStartRun;
-    PlayerJudgeStartSquat *judgeStartSquat;
-    PlayerJudgeStartWaterSurfaceRun *judgeStartWaterSurfaceRun;
-    PlayerJudgeSlopeSlide *judgeSlopeSlide;
-    PlayerJudgePoleClimb *judgePoleClimb;
-    PlayerJudgePreInputJump *judgePreInputJump;
-    PlayerJudgePreInputCapThrow *judgePreInputCapThrow;
-    PlayerJudgePreInputHackAction *judgePreInputHackAction;
-    HackCapJudgePreInputHoveringJump *judgeHackCapPreInputHoveringJump;
-    HackCapJudgePreInputSeparateThrow *judgeHackCapPreInputSeparateThrow;
-    HackCapJudgePreInputSeparateJump *judgeHackCapPreInptuSeparateJump;
-    PlayerJudgeWallCatch *judgeWallCatch;
-    PlayerJudgeWallCatchInputDir *judgeWallCatchInputDir;
-    PlayerJudgeWallHitDown *judgeWallHitDown;
-    PlayerJudgeWallHitDownForceRun *judgeWallHitDownForceRun;
-    PlayerJudgeWallHitDownRolling *judgeWallHitDownRolling;
-    PlayerJudgeWallKeep *judgeWallKeep;
+    // Judges                    
+    PlayerJudgeAirForceCount *judgeAirForceCount;                           // 0x3C0
+    PlayerJudgeCameraSubjective *judgeCameraSubjective;                     // 0x3C8
+    PlayerJudgeCapCatchPop *judgeCapCatchPop;                               // 0x3D0
+    PlayerJudgeDeadWipeStart *judgeDeadWipeStart;                           // 0x3D8
+    PlayerJudgeDirectRolling *judgeDirectRolling;                           // 0x3E0
+    PlayerJudgeEnableStandUp *judgeEnableStandUp;                           // 0x3E8
+    PlayerJudgeForceLand *judgeForceLand;                                   // 0x3F0
+    PlayerJudgeForceSlopeSlide *judgeForceSlopeSlide;                       // 0x3F8
+    PlayerJudgeForceRolling *judgeForceRolling;                             // 0x400
+    PlayerJudgeGrabCeil *judgeGrabCeil;                                     // 0x408
+    PlayerJudgeInWater *judgeInWater;                                       // 0x410
+    PlayerJudgeInWater *judgeInWater2;                                      // 0x418
+    PlayerJudgeInWater *judgeInWater3;                                      // 0x420
+    PlayerJudgeInWater *judgeInWater4;                                      // 0x428
+    PlayerJudgeInvalidateInputFall *judgeInvalidateInputFall;               // 0x430
+    PlayerJudgeLongFall *judgeLongFall;                                     // 0x438
+    PlayerJudgeOutInWater *judgeOutInWater;                                 // 0x440
+    PlayerJudgeRecoveryLifeFast *judgeRecoveryLifeFast;                     // 0x448
+    PlayerJudgeSandSink *judgeSandSink;                                     // 0x450
+    PlayerJudgeSpeedCheckFall *judgeSpeedCheckFall;                         // 0x458
+    PlayerJudgeStartHipDrop *judgeStartHipDrop;                             // 0x460
+    PlayerJudgeStartRise *judgeStartRise;                                   // 0x468
+    PlayerJudgeStartRolling *judgeStartRolling;                             // 0x470
+    PlayerJudgeStartRun *judgeStartRun;                                     // 0x478
+    PlayerJudgeStartSquat *judgeStartSquat;                                 // 0x480
+    PlayerJudgeStartWaterSurfaceRun *judgeStartWaterSurfaceRun;             // 0x488 
+    PlayerJudgeSlopeSlide *judgeSlopeSlide;                                 // 0x490
+    PlayerJudgePoleClimb *judgePoleClimb;                                   // 0x498
+    PlayerJudgePreInputJump *judgePreInputJump;                             // 0x4A0
+    PlayerJudgePreInputCapThrow *judgePreInputCapThrow;                     // 0x4A8
+    PlayerJudgePreInputHackAction *judgePreInputHackAction;                 // 0x4B0
+    HackCapJudgePreInputHoveringJump *judgeHackCapPreInputHoveringJump;     // 0x4B8
+    HackCapJudgePreInputSeparateThrow *judgeHackCapPreInputSeparateThrow;   // 0x4C0
+    HackCapJudgePreInputSeparateJump *judgeHackCapPreInputSeparateJump;     // 0x4C8
+    PlayerJudgeWallCatch *judgeWallCatch;                                   // 0x4D0
+    PlayerJudgeWallCatchInputDir *judgeWallCatchInputDir;                   // 0x4D8
+    PlayerJudgeWallHitDown *judgeWallHitDown;                               // 0x4E0
+    PlayerJudgeWallHitDownForceRun *judgeWallHitDownForceRun;               // 0x4E8
+    PlayerJudgeWallHitDownRolling *judgeWallHitDownRolling;                 // 0x4F0
+    PlayerJudgeWallKeep *judgeWallKeep;                                     // 0x4F8
 
-    int field_500; // 0x500
-    int field_504; // 0x504
+    int field_500;                                                          // 0x500
+    int field_504;                                                          // 0x504
 };

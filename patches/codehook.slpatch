@@ -24,3 +24,6 @@ StageScene::control+18:
     MOV X2, X20 // drawContext
     BL drawMainHook
 
+//Stage Scene Kill Hook
+004cc780:
+    BL sceneKillHook

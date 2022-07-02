@@ -4,6 +4,7 @@
 #include "game/StageScene/StageScene.h"
 
 #include "debugMenu.h"
+#define HOOK_ATTR __attribute__((section(".text.hooks")))
 
 class TransparentWall : public al::LiveActor {
 };
@@ -24,4 +25,7 @@ extern bool showHitSensors;
 extern bool isShowEyes;
 extern bool isShowAttacks;
 
+extern bool isInScene;
 extern bool isInGame;
+
+extern int timer;

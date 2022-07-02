@@ -8,6 +8,7 @@ namespace al
     class StageSwitchKeeper;
     class AreaInitInfo;
     class PlacementInfo;
+    class SceneObjHolder;
     
     class AreaObj {
         public:

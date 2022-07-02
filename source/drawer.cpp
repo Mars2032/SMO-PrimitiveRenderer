@@ -72,46 +72,38 @@ bool tryDrawAreaGroup(al::Scene* curScene, char const* area, bool isDrawSolid = 
     return true;
 }
 
-bool tryDrawActorHitsensors(al::LiveActor* actor, 
-    sead::Color4f body = sead::Color4f(0, 1, 0, .4), sead::Color4f eye = sead::Color4f(0, 1, 0, .4), sead::Color4f attack = sead::Color4f(0,1,1,0.25)) {
+bool tryDrawActorHitsensors(al::Scene* scene, al::LiveActor* actor, sead::Color4f body = sead::Color4f(0, 1, 0, .4), 
+    sead::Color4f eye = sead::Color4f(0, 1, 0, .4), sead::Color4f attack = sead::Color4f(0,1,1,0.25)) 
+    {
     sead::PrimitiveRenderer* renderer = sead::PrimitiveRenderer::instance();
     if (!renderer) return false;
 
     if (actor->mHitSensorKeeper) {
-        PlayerActorHakoniwa* player = al::getPlayerActor(actor, 0);
-        if (al::calcDistance(player, actor) < 3000.0f) {
-            al::HitSensor** sensors = actor->mHitSensorKeeper->mSensors;
+        al::PlayerHolder* pHolder = al::getScenePlayerHolder(scene);
+        PlayerActorHakoniwa* player = al::tryGetPlayerActor(pHolder, 0);
+        if (al::calcDistance(player, actor) < 5000.0f) { // find distance from player and only draw stuff in range
+            al::HitSensor** sensors = actor->mHitSensorKeeper->mSensors; // grab all HitSensors from the actor
             int sensorNum = actor->mHitSensorKeeper->mSensorNum;
             for (int i = 0; i < sensorNum; i++) {
                 renderer->begin();
-                sead::Vector3f* pos = al::getSensorPos(sensors[i]);
-                
-                float radius = al::getSensorRadius(sensors[i]);
-                const char* sensorName = sensors[i]->mName;
-                renderer->setModelMatrix(sead::Matrix34f::ident);
-                if (al::isSensorValid(sensors[i])) {
+                if (al::isSensorValid(sensors[i])) { // check if the sensor is valid (active) first
+                    sead::Vector3f* pos = al::getSensorPos(sensors[i]); // grab necessary info from sensor
+                    float radius = al::getSensorRadius(sensors[i]);
+                    const char* sensorName = sensors[i]->mName;
+                    renderer->setModelMatrix(sead::Matrix34f::ident);
                     if (al::isSensorPlayerAttack(sensors[i]) || al::isSensorEnemyAttack(sensors[i]) || al::isEqualString(sensorName, "Attack")) {
                         if (isShowAttacks) {
                             renderer->drawSphere4x8(*pos, radius, attack);
-                            renderer->end();
-                        } else {
-                            renderer->end();
                         }
                     } else if (al::isSensorEye(sensors[i]) || al::isSensorPlayerEye(sensors[i])) {
                         if (isShowEyes) {
                             renderer->drawCircle32(*pos, radius, eye);
-
-                            renderer->end();
-                        } else {
-                            renderer->end();
                         }
-                    } else if (al::isEqualString(sensorName, "Trample")) {
-                            renderer->end();
-                    } else {
+                    } else if (!al::isEqualString("Trample", sensorName)) {
                         renderer->drawSphere4x8(*pos, radius, body);
-                        renderer->end();
                     }
                 }
+                renderer->end();
             }
         }
     }

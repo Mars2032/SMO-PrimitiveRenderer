@@ -5,6 +5,7 @@
 #include "game/Actors/Shine.h"
 #include "game/Actors/CheckpointFlag.h"
 #include "al/LiveActor/LiveActorKit.h"
+#include "al/scene/Scene.h"
 
 #include "rs/util.hpp"
 
@@ -99,7 +100,7 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
     gTextWriter->mColor = sead::Color4f(1.f, 1.f, 1.f, 0.8f);
     al::Scene *curScene = curSequence->curScene;
 
-    if (curScene && isInGame && showMenu) {
+    if (curScene && isInGame && showMenu && isInScene && (timer == 0)) {
 
         drawBackground((agl::DrawContext *)drawContext);
 
@@ -132,7 +133,7 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         gTextWriter->endDraw();
     }
 
-    if (curScene && isInGame) {
+    if (curScene && isInGame && isInScene && (timer == 0)) {
         sead::LookAtCamera *cam = al::getLookAtCamera(curScene, 0);
         sead::Projection *projection = al::getProjectionSead(curScene, 0);
 
@@ -163,10 +164,10 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         sead::Vector3f &playerTrans = al::getTrans(player);
 
         if (showAreas)
-            renderer->drawSphere8x16(playerTrans, 5, color); // Draws a sphere at Mario's location
+            renderer->drawDisk16(playerTrans, 5, color); // Draws a sphere at Mario's location
 
         if (showAreas)
-            renderer->drawAxis(sead::Vector3f(0, 0, 0), 200); // Draws a 3-line axis at 0 0 0
+            renderer->drawAxis(playerTrans, 200); // Draws a 3-line axis at Mario
 
         if (transparentWalls[0] && showAreas && showTransparentWalls) {
             for (int i = 0; i < transparentWalls.size(); i++) {
@@ -212,8 +213,8 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
         if (showHitSensors) {
             al::LiveActorGroup* actorGroup = curScene->mSceneLiveActorKit->mAllActors;
             for (int i = 0; i < actorGroup->mActors.size(); i++) {
-                if (actorGroup->mActors[i]) 
-                    tryDrawActorHitsensors(actorGroup->mActors[i], sead::Color4f(1,0,0,0.3), sead::Color4f(0,0,1,1), sead::Color4f(0,1,1,0.2));
+                if (actorGroup->mActors[i])
+                    tryDrawActorHitsensors(curScene, actorGroup->mActors[i], sead::Color4f(1,0,0,0.3), sead::Color4f(0,0,1,1), sead::Color4f(0,1,1,0.2));
             }
         }
     }
